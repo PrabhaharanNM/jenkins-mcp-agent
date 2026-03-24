@@ -1,0 +1,200 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+
+    <!-- Software Category Selection -->
+    <f:section title="Software Categories">
+        <f:entry title="Repository Software" field="repoSoftware"
+                 description="Select your SCM. Leave 'Auto' to run all configured SCM agents.">
+            <f:select />
+        </f:entry>
+        <f:entry title="Cluster Type" field="clusterType"
+                 description="Select your container platform. Leave 'Auto' to run all configured.">
+            <f:select />
+        </f:entry>
+        <f:entry title="Artifact Manager" field="artifactManager"
+                 description="Select your artifact repository. Leave 'Auto' to run all configured.">
+            <f:select />
+        </f:entry>
+    </f:section>
+
+    <!-- Claude AI Provider Configuration -->
+    <f:section title="Claude AI Configuration">
+        <f:entry title="Provider" field="awsProvider"
+                 description="Select how to connect to Claude AI.">
+            <f:select />
+        </f:entry>
+        <f:entry title="Anthropic API Key" field="anthropicApiKey"
+                 description="Required for 'Direct API' and 'Claude Max' providers.">
+            <f:password />
+        </f:entry>
+        <f:entry title="Anthropic Base URL" field="anthropicBaseUrl"
+                 description="Override base URL (for proxies or Claude Max). Leave empty for default.">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="AWS Region" field="awsRegion"
+                 description="Required for AWS Bedrock provider.">
+            <f:textbox default="us-east-1" />
+        </f:entry>
+        <f:entry title="Model ID" field="awsModelId">
+            <f:textbox default="anthropic.claude-3-5-sonnet-20241022-v2:0" />
+        </f:entry>
+        <f:entry title="AWS Profile" field="awsProfile">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="VPC Endpoint" field="awsVpcEndpoint">
+            <f:textbox />
+        </f:entry>
+    </f:section>
+
+    <!-- Jenkins Configuration -->
+    <f:section title="Jenkins Configuration">
+        <f:entry title="Jenkins URL" field="jenkinsUrl">
+            <f:textbox />
+        </f:entry>
+    </f:section>
+
+    <!-- BitBucket Configuration -->
+    <f:section title="BitBucket Configuration">
+        <f:entry title="BitBucket URL" field="bitbucketUrl">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Username" field="bitbucketUsername">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Password" field="bitbucketPassword">
+            <f:password />
+        </f:entry>
+    </f:section>
+
+    <!-- Kubernetes Configuration -->
+    <f:section title="Kubernetes Configuration">
+        <f:entry title="API URL" field="k8sApiUrl">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Token" field="k8sToken">
+            <f:password />
+        </f:entry>
+        <f:entry title="Namespace" field="k8sNamespace">
+            <f:textbox default="default" />
+        </f:entry>
+    </f:section>
+
+    <!-- JFrog Configuration -->
+    <f:section title="JFrog Configuration">
+        <f:entry title="JFrog URL" field="jfrogUrl">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Username" field="jfrogUsername">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="API Key" field="jfrogApiKey">
+            <f:password />
+        </f:entry>
+    </f:section>
+
+    <!-- Docker Configuration -->
+    <f:section title="Docker Configuration">
+        <f:entry title="Docker Host" field="dockerHost"
+                 description="Docker daemon URL (e.g., unix:///var/run/docker.sock or tcp://host:2376)">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="TLS Certificate" field="dockerTlsCert">
+            <f:password />
+        </f:entry>
+        <f:entry title="TLS Key" field="dockerTlsKey">
+            <f:password />
+        </f:entry>
+        <f:entry title="TLS CA Certificate" field="dockerTlsCaCert">
+            <f:password />
+        </f:entry>
+    </f:section>
+
+    <!-- Nexus Configuration -->
+    <f:section title="Nexus Repository Configuration">
+        <f:entry title="Nexus URL" field="nexusUrl">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Username" field="nexusUsername">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Password" field="nexusPassword">
+            <f:password />
+        </f:entry>
+    </f:section>
+
+    <!-- GitHub SCM Configuration -->
+    <f:section title="GitHub Configuration">
+        <f:entry title="GitHub Token" field="githubToken">
+            <f:password />
+        </f:entry>
+        <f:entry title="GitHub API URL" field="githubApiUrl">
+            <f:textbox default="https://api.github.com" />
+        </f:entry>
+        <f:entry title="Owner" field="githubOwner">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Repository" field="githubRepo">
+            <f:textbox />
+        </f:entry>
+    </f:section>
+
+    <!-- Jira Configuration -->
+    <f:section title="Jira Configuration">
+        <f:entry title="Jira URL" field="jiraUrl">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Username" field="jiraUsername">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="API Token" field="jiraApiToken">
+            <f:password />
+        </f:entry>
+        <f:entry title="Project Key" field="jiraProject">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="Epic Key" field="jiraEpicKey">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="DevOps Assignee" field="jiraDevopsAssignee">
+            <f:textbox />
+        </f:entry>
+    </f:section>
+
+    <!-- Email / SMTP Configuration -->
+    <f:section title="Email / SMTP Configuration">
+        <f:entry title="SMTP Host" field="smtpHost">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="SMTP Port" field="smtpPort">
+            <f:textbox default="587" />
+        </f:entry>
+        <f:entry title="Use SSL" field="smtpSslEnabled">
+            <f:checkbox />
+        </f:entry>
+        <f:entry title="From Address" field="smtpFromAddress">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="From Name" field="smtpFromName">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="SMTP Username" field="smtpUsername">
+            <f:textbox />
+        </f:entry>
+        <f:entry title="SMTP Password" field="smtpPassword">
+            <f:password />
+        </f:entry>
+    </f:section>
+
+    <!-- Team Mappings Configuration -->
+    <f:section title="Team Mappings">
+        <f:entry title="Team Mappings (JSON)"
+                 description="JSON mapping of repository patterns to team names and email addresses.">
+            <f:textarea field="teamMappings" />
+        </f:entry>
+        <f:entry title="DevOps Manager"
+                 description="DevOps manager contact information (JSON with name and email).">
+            <f:textarea field="devopsManager" />
+        </f:entry>
+    </f:section>
+
+</j:jelly>

@@ -1,0 +1,6 @@
+workflow-aggregator:latest
+credentials:latest
+git:latest
+pipeline-stage-view:latest
+ws-cleanup:latest
+timestamper:latest

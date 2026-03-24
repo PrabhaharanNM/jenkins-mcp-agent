@@ -1,0 +1,6 @@
+<?jelly escape-by-default='true'?>
+<div>
+    Automatically analyzes Jenkins build failures using AI (Claude via AWS Bedrock).
+    Runs 4 MCP agents in parallel to gather data from Jenkins, BitBucket, Kubernetes, and JFrog,
+    then uses Claude AI to generate root cause analysis, create Jira tickets, and notify teams.
+</div>

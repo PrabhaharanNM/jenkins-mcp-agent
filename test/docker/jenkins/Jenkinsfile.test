@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Cloning repository https://git.example.com/scm/myproject/webapp.git'
+                echo 'Checking out main to revision abc123def456'
+            }
+        }
+
+        stage('Build - payments') {
+            steps {
+                echo 'Building payments module...'
+                echo 'Compiling src/main/java/com/example/App.java'
+                sh 'echo "ERROR: compilation failed - cannot find symbol" && exit 1'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo 'Build failed! MCP Agent would trigger here.'
+            // In real usage: mcpAnalyze()
+        }
+    }
+}

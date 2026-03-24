@@ -1,0 +1,121 @@
+[
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/rest/api/1.0/projects/PROJ/repos/webapp/raw/CODEOWNERS"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["text/plain"]
+      },
+      "body": "# CODEOWNERS\n* @platform-team\nsrc/main/ @backend-team\nsrc/test/ @qa-team\ninfra/ @devops-team"
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/rest/api/1.0/projects/PROJ/repos/webapp/commits",
+      "queryStringParameters": {
+        "limit": ["50"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "values": [
+          {
+            "id": "abc123def456",
+            "displayId": "abc123d",
+            "message": "fix: update database connection pool settings",
+            "author": {
+              "name": "Developer One",
+              "emailAddress": "dev1@example.com"
+            },
+            "authorTimestamp": 1710500000000
+          },
+          {
+            "id": "789xyz012345",
+            "displayId": "789xyz0",
+            "message": "feat: add new payment API endpoint",
+            "author": {
+              "name": "Developer Two",
+              "emailAddress": "dev2@example.com"
+            },
+            "authorTimestamp": 1710400000000
+          }
+        ]
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/storage/libs-release-local/PROJ"
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "uri": "/libs-release-local/PROJ",
+        "repo": "libs-release-local"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "POST",
+      "path": "/rest/api/2/issue"
+    },
+    "httpResponse": {
+      "statusCode": 201,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "id": "10001",
+        "key": "PROJ-1234",
+        "self": "http://mockserver:1080/rest/api/2/issue/10001"
+      }
+    }
+  },
+  {
+    "httpRequest": {
+      "method": "GET",
+      "path": "/api/v1/namespaces/default/pods",
+      "queryStringParameters": {
+        "labelSelector": ["app=.*"]
+      }
+    },
+    "httpResponse": {
+      "statusCode": 200,
+      "headers": {
+        "Content-Type": ["application/json"]
+      },
+      "body": {
+        "items": [
+          {
+            "metadata": {"name": "jenkins-agent-abc123"},
+            "spec": {"nodeName": "worker-node-1"},
+            "status": {
+              "phase": "Running",
+              "containerStatuses": [
+                {
+                  "name": "jnlp",
+                  "restartCount": 0,
+                  "state": {"running": {"startedAt": "2024-01-01T00:00:00Z"}},
+                  "lastState": {}
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+]

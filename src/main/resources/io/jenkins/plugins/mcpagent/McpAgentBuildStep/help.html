@@ -1,0 +1,16 @@
+<div>
+    <p>
+        <strong>MCP Agent Build Failure Analyzer</strong> automatically performs root cause analysis
+        when a build fails. It runs four MCP agents in parallel to gather contextual data from
+        Jenkins, BitBucket, Kubernetes, and JFrog, then uses Claude AI (via AWS Bedrock) to
+        determine the root cause of the failure.
+    </p>
+    <p>
+        After analysis, the plugin can automatically create a Jira ticket with the findings
+        and notify the responsible team via email.
+    </p>
+    <p>
+        Configure the repositories associated with this build so the plugin can retrieve
+        recent commits and pull requests from BitBucket during analysis.
+    </p>
+</div>

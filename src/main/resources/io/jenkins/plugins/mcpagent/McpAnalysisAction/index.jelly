@@ -1,0 +1,105 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout">
+
+    <l:layout title="MCP Build Failure Analysis - ${it.buildDisplayName}">
+        <l:side-panel>
+            <l:tasks>
+                <l:task icon="images/24x24/up.png" href=".." title="Back to Build" />
+            </l:tasks>
+        </l:side-panel>
+
+        <l:main-panel>
+            <h1>MCP Build Failure Analysis</h1>
+            <h2>${it.buildDisplayName}</h2>
+
+            <!-- pending state -->
+            <j:if test="${it.status == 'pending'}">
+                <meta http-equiv="refresh" content="5" />
+                <div style="text-align: center; padding: 40px;">
+                    <img src="${imagesURL}/spinner.gif" alt="Loading..." />
+                    <h3>Analysis Pending</h3>
+                    <p>The MCP agents are initializing. This page will automatically refresh.</p>
+                </div>
+            </j:if>
+
+            <!-- in-progress state -->
+            <j:if test="${it.status == 'in-progress'}">
+                <meta http-equiv="refresh" content="10" />
+                <div style="text-align: center; padding: 40px;">
+                    <img src="${imagesURL}/spinner.gif" alt="Analyzing..." />
+                    <h3>Analysis In Progress</h3>
+                    <p>MCP agents are gathering data from Jenkins, BitBucket, Kubernetes, and JFrog.
+                       Claude AI is performing root cause analysis. This page will automatically refresh.</p>
+                </div>
+            </j:if>
+
+            <!-- completed state -->
+            <j:if test="${it.status == 'completed'}">
+                <j:set var="result" value="${it.result}" />
+
+                <table class="pane" style="width: 100%; margin-top: 20px;">
+                    <tr>
+                        <td class="pane-header" colspan="2">Analysis Results</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px; font-weight: bold; vertical-align: top; padding: 8px;">Category</td>
+                        <td style="padding: 8px;">${result.category}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; vertical-align: top; padding: 8px;">Responsible Team</td>
+                        <td style="padding: 8px;">${result.responsibleTeam} (${result.teamEmail})</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; vertical-align: top; padding: 8px;">Root Cause</td>
+                        <td style="padding: 8px;">
+                            <strong>${result.rootCauseSummary}</strong>
+                            <pre style="white-space: pre-wrap; word-wrap: break-word; margin-top: 8px;">${result.rootCauseDetails}</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; vertical-align: top; padding: 8px;">Evidence</td>
+                        <td style="padding: 8px;">
+                            <ul>
+                                <j:forEach var="item" items="${result.evidence}">
+                                    <li>${item}</li>
+                                </j:forEach>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; vertical-align: top; padding: 8px;">Next Steps</td>
+                        <td style="padding: 8px;">
+                            <ol>
+                                <j:forEach var="step" items="${result.nextSteps}">
+                                    <li>${step}</li>
+                                </j:forEach>
+                            </ol>
+                        </td>
+                    </tr>
+                    <j:if test="${result.jiraTicketKey != null and result.jiraTicketKey != ''}">
+                        <tr>
+                            <td style="font-weight: bold; vertical-align: top; padding: 8px;">Jira Ticket</td>
+                            <td style="padding: 8px;">
+                                <a href="${result.jiraTicketUrl}" target="_blank">${result.jiraTicketKey}</a>
+                            </td>
+                        </tr>
+                    </j:if>
+                </table>
+
+                <p style="margin-top: 10px; color: #666;">
+                    Analysis completed in ${result.analysisTimeMs}ms
+                </p>
+            </j:if>
+
+            <!-- failed state -->
+            <j:if test="${it.status == 'failed'}">
+                <div style="padding: 20px; border: 1px solid #c00; background-color: #ffe0e0; margin-top: 20px;">
+                    <h3 style="color: #c00;">Analysis Failed</h3>
+                    <p>${it.result.errorMessage}</p>
+                </div>
+            </j:if>
+
+        </l:main-panel>
+    </l:layout>
+
+</j:jelly>

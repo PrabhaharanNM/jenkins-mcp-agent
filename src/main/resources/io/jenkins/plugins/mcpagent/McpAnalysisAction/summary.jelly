@@ -1,0 +1,27 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler">
+
+    <j:choose>
+        <j:when test="${it.status == 'pending'}">
+            <img src="${imagesURL}/16x16/clock.png" alt="Pending" />
+            <a href="${it.urlName}">MCP Analysis: Pending</a>
+        </j:when>
+        <j:when test="${it.status == 'in-progress'}">
+            <img src="${imagesURL}/16x16/blue-anime.gif" alt="In Progress" />
+            <a href="${it.urlName}">MCP Analysis: In Progress</a>
+        </j:when>
+        <j:when test="${it.status == 'completed'}">
+            <img src="${imagesURL}/16x16/blue.png" alt="Completed" />
+            <a href="${it.urlName}">MCP Analysis: ${it.result.category}</a>
+            - Team: ${it.result.responsibleTeam}
+            <j:if test="${it.result.jiraTicketKey != null and it.result.jiraTicketKey != ''}">
+                | <a href="${it.result.jiraTicketUrl}" target="_blank">${it.result.jiraTicketKey}</a>
+            </j:if>
+        </j:when>
+        <j:when test="${it.status == 'failed'}">
+            <img src="${imagesURL}/16x16/red.png" alt="Failed" />
+            <a href="${it.urlName}">MCP Analysis: Failed</a>
+        </j:when>
+    </j:choose>
+
+</j:jelly>

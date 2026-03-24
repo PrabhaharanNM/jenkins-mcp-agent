@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  jenkins:
+    build:
+      context: ./test/docker/jenkins
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - mcp-test-net
+    depends_on:
+      - mockserver
+      - mailhog
+
+  mockserver:
+    image: mockserver/mockserver:5.15.0
+    ports:
+      - "1080:1080"
+    environment:
+      - MOCKSERVER_INITIALIZATION_JSON_PATH=/config/expectations.json
+      - MOCKSERVER_LOG_LEVEL=WARN
+    volumes:
+      - ./test/docker/mockserver/expectations.json:/config/expectations.json:ro
+    networks:
+      - mcp-test-net
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - mcp-test-net
+
+volumes:
+  jenkins_home:
+
+networks:
+  mcp-test-net:
+    driver: bridge

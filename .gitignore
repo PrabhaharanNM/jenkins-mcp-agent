@@ -1,0 +1,31 @@
+# Maven
+target/
+*.class
+*.jar
+*.war
+*.hpi
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+
+# Go binaries
+go-binary/mcp-agent-*
+src/main/resources/binaries/mcp-agent-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Go
+go-binary/vendor/
+
+# Temp
+*.log
+*.tmp
